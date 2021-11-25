@@ -1,8 +1,12 @@
 var userFormEl = document.querySelector("#search-box");
+var liquorTypeEl = document.querySelector("#liquor");
+var resultsContainerEl = document.querySelector("#results-container");
+var searchTermEl = document.querySelector("#search-term");
 
-var getUserRepos = function() {
-    var apiUrl = "https://www.thecocktaildb.com/api/json/v1/1/random.php";
-    
+var getCocktail = function(input) {
+    var apiUrl = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=" + input;
+
+    // make a request to the url
     fetch(apiUrl).then(function(response) {
         response.json().then(function(data) {
             console.log(data);
@@ -10,20 +14,19 @@ var getUserRepos = function() {
     });
 }
 
-var getKrogerRepos = function() {
-    fetch("https://api.kroger.com/v1/").then(function(response) {
-        console.log("inside", response);
-    });
-    
-    console.log("outside");
+var formSubmit = function(event) {
+    event.preventDefault();
+
+    var liquorType = liquorTypeEl.value.trim();
+
+    if (liquorType) {
+        getCocktail(liquorType);
+        liquorTypeEl.value = "";
+    } else {
+        return;
+    };
 }
 
-// var formSubmit = function(event) {
-//     event.preventDefault();
-//     console.log(event);
-// }
+userFormEl.addEventListener("submit", formSubmit);
 
-// userFormEl.addEventListener("submit", formSubmit);
-
-getUserRepos();
-getKrogerRepos();
+getCocktail();

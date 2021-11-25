@@ -21,20 +21,17 @@
     <div class="columns">
         <!--left column(search field)-->
         <div class="column">
-            <form class="box" id="search-box">
-                <div class="field">
-                    <label class="label">Search by Liquor</label>
-                    <div class="control">
-                        <input class="input" type="text" placeholder="e.g. Vodka">
-                    </div>
-                </div>
-
-                <button class="button is-primary"">Generate Recipe</button>
+            <form id="search-box" class="box">
+                <label class="label" for="liquor">Search by Liquor</label>
+                <input class="input" name="liquor" id="liquor" type="text" placeholder="e.g. Vodka" />
+                <button class="button is-primary" type="submit">Generate Recipe</button>
             </form>
         </div>
         <!--right column(result field)-->
         <div class="column">
-            second column
-    </div>
+            <h2 class="label">Recipe: <span id="search-term"></span></h2>
+            <div id="results-container" class="recipe"></div>
+        </div>
+    <script src="./assets/script.js"></script>
     </body>
 </html>
