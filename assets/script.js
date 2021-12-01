@@ -95,6 +95,11 @@ var displayCocktailDetail = function(drinks) {
         var cocktailIngredient7 = drinks.drinks[0].strMeasure7 + " " + drinks.drinks[0].strIngredient7;
         var cocktailInstructions = drinks.drinks[0].strInstructions;
 
+        var returnBtn = document.createElement("button");
+        returnBtn.textContent = ("Back to Search Results");
+        returnBtn.classList = "button is-primary is-light is-fullwidth";
+        resultsContainerEl.appendChild(returnBtn);
+
         var cocktailTitle = document.createElement("h2");
         cocktailTitle.textContent = cocktailNameArr;
         resultsContainerEl.appendChild(cocktailTitle);
@@ -153,11 +158,15 @@ var displayCocktailDetail = function(drinks) {
         saveBtn.classList = "button is-primary is-fullwidth";
         resultsContainerEl.appendChild(saveBtn);
 
-        saveBtn.addEventListener("click", function(event) {
+        returnBtn.addEventListener("click", function() {
+            var liquorSearchArr = JSON.parse(localStorage.getItem("liquor"));
+            getCocktail(liquorSearchArr);
+        });
+        
+        saveBtn.addEventListener("click", function() {
             localStorage.setItem("searchHistory", JSON.stringify(resultsContainerEl.textContent));
         });
     };
 }
-
 
 userFormEl.addEventListener("submit", formSubmit);
