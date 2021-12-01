@@ -1,5 +1,16 @@
+<<<<<<< HEAD
 #map {
     height: 250px;
     width: 250px;
     margin: 5px 5px 5px 25px;
 }
+=======
+#results-container {
+    text-align: center;
+    align-items: center;
+}
+
+button {
+    text-align: center;
+}
+>>>>>>> c63c4ef43f882a6282c8fcacf51629c24342bda6

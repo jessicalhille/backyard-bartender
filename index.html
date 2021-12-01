@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="./assets/style.css">
     </head>
     <body>
+<<<<<<< HEAD
         <section class="hero is-primary">
             <div class="hero-body">
                 <p class="title">
@@ -19,6 +20,16 @@
                 </p>
             </div>
         </section>
+=======
+    <section class="section">
+        <div class="container">
+        <h1 class="title">The Backyard Bartender <i class="fas fa-cocktail"></i></h1>
+        <p class="subtitle">
+            Discover <strong>DIY</strong> cocktail recipes with the liquor of your choice!
+        </p>
+        </div>
+    </section>
+>>>>>>> c63c4ef43f882a6282c8fcacf51629c24342bda6
     <!--section for columns-->
     <div class="columns">
         <!--left column(search field)-->
@@ -32,8 +43,10 @@
         </div>
         <!--right column(result field)-->
         <div class="column">
-            <h2 class="label">Recipe with: <span id="search-term"></span></h2>
-            <div id="results-container" class="recipe"></div>
+            <div class="box">
+                <h2 class="label">Recipes with: <span id="search-term"></span></h2>
+                <ol id="results-container" class="content"></ol>
+            </div>
         </div>
 
         <script async
