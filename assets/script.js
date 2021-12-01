@@ -1,3 +1,5 @@
+var searchHistory = [];
+var liquor = [];
 var userFormEl = document.querySelector("#search-box");
 var liquorTypeEl = document.querySelector("#liquor");
 var resultsContainerEl = document.querySelector("#results-container");
@@ -14,11 +16,8 @@ var formSubmit = function(event) {
     } else {
         return;
     };
-    saveSearch();
-}
 
-var saveSearch = function() {
-    localStorage.setItem("liquor", JSON.stringify(liquor));
+    localStorage.setItem("liquor", JSON.stringify(liquorType));
 }
 
 var getCocktail = function(liquorType) {
@@ -46,62 +45,119 @@ var displayCocktail = function(drinks, searchLiquor) {
         var cocktailNameArr = drinks.drinks[i].strDrink;
         var cocktailIdArr = drinks.drinks[i].idDrink;
 
-        var apiIdUrl = "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=" + cocktailIdArr + "&appid=1";
+        var cocktailRecipe = document.createElement("h2");
+        cocktailRecipe.textContent = cocktailNameArr;
 
         var cocktailId = document.createElement("button");
-        cocktailId.classList = "recipe";
-        cocktailId.addEventListener("click", function() {
-            cocktailDetail();
-        });
+        cocktailId.textContent = cocktailIdArr;
+        cocktailId.classList = "button is-primary is-light is-fullwidth";
 
-        var cocktailRecipe = document.createElement("ul");
-        cocktailRecipe.textContent = cocktailNameArr;
-        cocktailRecipe.classList = "list-item flex-row justify-space-between";
-
-        cocktailId.appendChild(cocktailRecipe);
-
+        resultsContainerEl.appendChild(cocktailRecipe);
         resultsContainerEl.appendChild(cocktailId);
-    };
 
-    var cocktailDetail = function() {
-        fetch(apiIdUrl).then(function(response) {
-            if (response.ok) {
-                response.json().then(function(data) {
-                    displayCocktailDetail(data);
-                });
-            } else {
-                return;
-            };
+        cocktailId.addEventListener("click", function() {
+            var cocktailIdSource = $(this).text();
+            getCocktailDetail(cocktailIdSource);
         });
-    }
+    }; 
+}
+
+var getCocktailDetail = function(cocktailIdSource) {
+    var apiIdUrl = "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=" + cocktailIdSource + "&appid=1";
+
+    fetch(apiIdUrl)
+    .then(function(response) {
+        if (response.ok) {
+            return response.json();
+        } else {
+            return;
+        };
+    })
+    .then(function(data) {
+        displayCocktailDetail(data);
+    });
 }
 
 var displayCocktailDetail = function(drinks) {
     resultsContainerEl.textContent = "";
 
     for (var i = 0; i < drinks.drinks.length; i++) {
+        var cocktailImgUrl = drinks.drinks[0].strDrinkThumb;
+        var cocktailImg = cocktailImgUrl + "/preview";
         var cocktailNameArr = drinks.drinks[0].strDrink;
-        var cocktailIdArr = drinks.drinks[0].idDrink;
         var cocktailGlass = drinks.drinks[0].strGlass;
-        var cocktailIngredient1 = drinks.drinks[0].strMeasure1 + drinks.drinks[0].strIngredient1;
-        var cocktailIngredient2 = drinks.drinks[0].strMeasure2 + drinks.drinks[0].strIngredient2;
-        var cocktailIngredient3 = drinks.drinks[0].strMeasure3 + drinks.drinks[0].strIngredient3;
-        var cocktailIngredient4 = drinks.drinks[0].strMeasure4 + drinks.drinks[0].strIngredient4;
-        var cocktailIngredient5 = drinks.drinks[0].strMeasure5 + drinks.drinks[0].strIngredient5;
-        var cocktailIngredient6 = drinks.drinks[0].strMeasure6 + drinks.drinks[0].strIngredient6;
-        var cocktailIngredient7 = drinks.drinks[0].strMeasure7 + drinks.drinks[0].strIngredient7;
+        var cocktailIngredient1 = drinks.drinks[0].strMeasure1 + " " + drinks.drinks[0].strIngredient1;
+        var cocktailIngredient2 = drinks.drinks[0].strMeasure2 + " " + drinks.drinks[0].strIngredient2;
+        var cocktailIngredient3 = drinks.drinks[0].strMeasure3 + " " + drinks.drinks[0].strIngredient3;
+        var cocktailIngredient4 = drinks.drinks[0].strMeasure4 + " " + drinks.drinks[0].strIngredient4;
+        var cocktailIngredient5 = drinks.drinks[0].strMeasure5 + " " + drinks.drinks[0].strIngredient5;
+        var cocktailIngredient6 = drinks.drinks[0].strMeasure6 + " " + drinks.drinks[0].strIngredient6;
+        var cocktailIngredient7 = drinks.drinks[0].strMeasure7 + " " + drinks.drinks[0].strIngredient7;
         var cocktailInstructions = drinks.drinks[0].strInstructions;
 
+        var cocktailTitle = document.createElement("h2");
+        cocktailTitle.textContent = cocktailNameArr;
+        resultsContainerEl.appendChild(cocktailTitle);
 
-        var cocktailRecipeDetail = document.createElement("ol");
-        cocktailRecipeDetail.textContent = cocktailNameArr + cocktailGlass + cocktailIngredient1 + cocktailIngredient2 + 
-        cocktailIngredient3 + cocktailIngredient4 + cocktailIngredient5 + cocktailIngredient6 + cocktailIngredient7 + cocktailInstructions;
-        cocktailRecipeDetail.classList = "list-item flex-row justify-space-between";
+        var cocktailPhoto = document.createElement("img");
+        cocktailPhoto.classList = "img is-100x100"
+        cocktailPhoto.setAttribute("src", cocktailImg);
+        resultsContainerEl.appendChild(cocktailPhoto);
 
-        resultsContainerEl.appendChild(cocktailRecipeDetail);
+        var glassTitle = document.createElement("h4");
+        glassTitle.textContent = ("Type of Glass:")
+        resultsContainerEl.appendChild(glassTitle);
+
+        var glass = document.createElement("p");
+        glass.textContent = cocktailGlass;
+        resultsContainerEl.appendChild(glass);
+        
+        var ingredientsTitle = document.createElement("h4");
+        ingredientsTitle.textContent = ("Ingredients:"); 
+        resultsContainerEl.appendChild(ingredientsTitle);
+
+        var ingredient1 = document.createElement("p");
+        ingredient1.textContent = cocktailIngredient1;
+        resultsContainerEl.appendChild(ingredient1);
+
+        var ingredient2 = document.createElement("p");
+        ingredient2.textContent = cocktailIngredient2;
+        resultsContainerEl.appendChild(ingredient2);
+
+        var ingredient3 = document.createElement("p");
+        ingredient3.textContent = cocktailIngredient3;
+        resultsContainerEl.appendChild(ingredient3);
+
+        var ingredient4 = document.createElement("p");
+        ingredient4.textContent = cocktailIngredient4;
+        resultsContainerEl.appendChild(ingredient4);
+
+        var ingredient5 = document.createElement("p");
+        ingredient5.textContent = cocktailIngredient5;
+        resultsContainerEl.appendChild(ingredient5);
+
+        var ingredient6 = document.createElement("p");
+        ingredient6.textContent = cocktailIngredient6;
+        resultsContainerEl.appendChild(ingredient6);
+
+        var ingredient7 = document.createElement("p");
+        ingredient7.textContent = cocktailIngredient7;
+        resultsContainerEl.appendChild(ingredient7);
+
+        var instructions = document.createElement("h4");
+        instructions.textContent = ("Instructions: ") + cocktailInstructions;
+        resultsContainerEl.appendChild(instructions);
+
+        var saveBtn = document.createElement("button");
+        saveBtn.textContent = ("Save Recipe");
+        saveBtn.classList = "button is-primary is-fullwidth";
+        resultsContainerEl.appendChild(saveBtn);
+
+        saveBtn.addEventListener("click", function(event) {
+            localStorage.setItem("searchHistory", JSON.stringify(resultsContainerEl.textContent));
+        });
     };
 }
-
 
 
 userFormEl.addEventListener("submit", formSubmit);
