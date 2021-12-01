@@ -169,4 +169,16 @@ var displayCocktailDetail = function(drinks) {
     };
 }
 
+// start map
+
+function initMap () {
+
+    var options = {
+        center: {lat:32.7767, lng: -96.7970},
+        zoom: 8
+    }
+
+    map = new google.maps.Map(document.getElementById("map"), options)
+}
+
 userFormEl.addEventListener("submit", formSubmit);
