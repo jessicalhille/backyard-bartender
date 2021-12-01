@@ -169,8 +169,6 @@ var displayCocktailDetail = function(drinks) {
     };
 }
 
-// start map
-
 function initMap () {
 
     var options = {
@@ -182,3 +180,4 @@ function initMap () {
 }
 
 userFormEl.addEventListener("submit", formSubmit);
+
