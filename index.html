@@ -9,29 +9,29 @@
         <link rel="stylesheet" href="./assets/style.css">
     </head>
     <body>
-        <section class="hero is-primary">
-            <div class="hero-body">
-                <p class="title">
-                Backyard Bartender! <i class="fas fa-cocktail"></i>
-                </p>
-                <p class="subtitle">
-                Discover <strong>DIY</strong> cocktail recipes with the liquor of your choice!
-                </p>
-            </div>
-        </section>
+    <section class="hero has-background-success-dark">
+        <div class="hero-body">
+        <p class="title has-text-white">
+            The Backyard Bartender <i class="fas fa-cocktail has-text-dark"></i>
+        </p>
+        <p class="subtitle has-text-white">
+            Discover <strong>DIY</strong> cocktail recipes with the liquor of your choice!
+        </p>
+        </div>
+    </section>
     <!--section for columns-->
-    <div class="columns">
+    <div class="columns has-background-success-light">
         <!--left column(search field)-->
-        <div class="column has-background-grey-light">
+        <div class="column is-one-third">
             <form id="search-box" class="box">
                 <label class="label" for="liquor">Search by Liquor</label>
                 <input class="input" name="liquor" id="liquor" type="text" placeholder="e.g. Vodka" />
-                <button class="button is-primary" type="submit">Generate Recipe</button>
+                <button class="button is-dark" type="submit">Generate Recipe</button>
             </form>
             <div id = "map" class="box"></div>
         </div>
         <!--right column(result field)-->
-        <div class="column has-background-grey-light">
+        <div class="column is-two-thirds">
             <div class="box">
                 <h2 class="label">Recipes with: <span id="search-term"></span></h2>
                 <ol id="results-container" class="content"></ol>

@@ -50,7 +50,7 @@ var displayCocktail = function(drinks, searchLiquor) {
 
         var cocktailId = document.createElement("button");
         cocktailId.textContent = cocktailIdArr;
-        cocktailId.classList = "button is-primary is-light is-fullwidth";
+        cocktailId.classList = "button is-success is-light is-fullwidth";
 
         resultsContainerEl.appendChild(cocktailRecipe);
         resultsContainerEl.appendChild(cocktailId);
@@ -97,7 +97,7 @@ var displayCocktailDetail = function(drinks) {
 
         var returnBtn = document.createElement("button");
         returnBtn.textContent = ("Back to Search Results");
-        returnBtn.classList = "button is-primary is-light is-fullwidth";
+        returnBtn.classList = "button is-success is-light is-fullwidth";
         resultsContainerEl.appendChild(returnBtn);
 
         var cocktailTitle = document.createElement("h2");
@@ -155,7 +155,7 @@ var displayCocktailDetail = function(drinks) {
 
         var saveBtn = document.createElement("button");
         saveBtn.textContent = ("Save Recipe");
-        saveBtn.classList = "button is-primary is-fullwidth";
+        saveBtn.classList = "button is-dark is-fullwidth";
         resultsContainerEl.appendChild(saveBtn);
 
         returnBtn.addEventListener("click", function() {
@@ -169,9 +169,7 @@ var displayCocktailDetail = function(drinks) {
     };
 }
 
-// start map
-
-function initMap () {
+function initMap() {
 
     var options = {
         center: {lat:32.7767, lng: -96.7970},
@@ -181,6 +179,5 @@ function initMap () {
     map = new google.maps.Map(document.getElementById("map"), options)
 }
 
-
-
 userFormEl.addEventListener("submit", formSubmit);
+
