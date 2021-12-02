@@ -1,0 +1,14 @@
+#map {
+    height: 250px;
+    width: 250px;
+    margin: 5px 5px 5px 25px;
+}
+
+#results-container {
+    text-align: center;
+    align-items: center;
+}
+
+.button {
+    text-align: center;
+}
