@@ -24,6 +24,8 @@ A stress-free, easy to use cocktail generator where all you need to know is whic
 
 ***
 
+<img width="1463" alt="Screen Shot 2021-12-01 at 6 18 03 PM" src="https://user-images.githubusercontent.com/91511805/144334969-57fc729b-e927-442e-be78-2c295d4a9628.png">
+
 ***
 
 ## Link to Deployed Application
