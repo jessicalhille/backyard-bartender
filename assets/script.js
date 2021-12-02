@@ -169,7 +169,7 @@ var displayCocktailDetail = function(drinks) {
     };
 }
 
-function initMap () {
+function initMap() {
 
     var options = {
         center: {lat:32.7767, lng: -96.7970},
