@@ -9,7 +9,6 @@
         <link rel="stylesheet" href="./assets/style.css">
     </head>
     <body>
-<<<<<<< HEAD
         <section class="hero is-primary">
             <div class="hero-body">
                 <p class="title">
@@ -20,29 +19,19 @@
                 </p>
             </div>
         </section>
-=======
-    <section class="section">
-        <div class="container">
-        <h1 class="title">The Backyard Bartender <i class="fas fa-cocktail"></i></h1>
-        <p class="subtitle">
-            Discover <strong>DIY</strong> cocktail recipes with the liquor of your choice!
-        </p>
-        </div>
-    </section>
->>>>>>> c63c4ef43f882a6282c8fcacf51629c24342bda6
     <!--section for columns-->
     <div class="columns">
         <!--left column(search field)-->
-        <div class="column">
+        <div class="column has-background-grey-light">
             <form id="search-box" class="box">
                 <label class="label" for="liquor">Search by Liquor</label>
                 <input class="input" name="liquor" id="liquor" type="text" placeholder="e.g. Vodka" />
                 <button class="button is-primary" type="submit">Generate Recipe</button>
             </form>
-            <div id = map></div>
+            <div id = "map" class="box"></div>
         </div>
         <!--right column(result field)-->
-        <div class="column">
+        <div class="column has-background-grey-light">
             <div class="box">
                 <h2 class="label">Recipes with: <span id="search-term"></span></h2>
                 <ol id="results-container" class="content"></ol>

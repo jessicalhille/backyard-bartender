@@ -169,7 +169,6 @@ var displayCocktailDetail = function(drinks) {
     };
 }
 
-<<<<<<< HEAD
 // start map
 
 function initMap () {
@@ -184,6 +183,4 @@ function initMap () {
 
 
 
-=======
->>>>>>> c63c4ef43f882a6282c8fcacf51629c24342bda6
 userFormEl.addEventListener("submit", formSubmit);
