@@ -168,16 +168,69 @@ var displayCocktailDetail = function(drinks) {
         });
     };
 }
+mapboxgl.accessToken = 'pk.eyJ1IjoiYmV0aG11IiwiYSI6ImNrd3IzcG14ejBlMXgycG53OXJ5ZGFrdzIifQ.t8DE5oQ9pWsizZZSuEkrRg';
+const map = new mapboxgl.Map({
+  container: 'map', // Container ID
+  style: 'mapbox://styles/mapbox/streets-v11', // Map style to use
+  center: [-97.3308, 32.7555], // Starting position [lng, lat]
+  zoom: 12, // Starting zoom level
+});
 
-function initMap() {
+const marker = new mapboxgl.Marker() // initialize a new marker
+  .setLngLat([-97.3308, 32.7555]) // Marker [lng, lat] coordinates
+  .addTo(map); // Add the marker to the map
 
-    var options = {
-        center: {lat:32.7767, lng: -96.7970},
-        zoom: 8
+const geocoder = new MapboxGeocoder({
+// Initialize the geocoder
+    accessToken: mapboxgl.accessToken, // Set the access token
+    mapboxgl: mapboxgl, // Set the mapbox-gl instance
+    marker: false // Do not use the default marker style
+});
+
+// Add the geocoder to the map
+map.addControl(geocoder);
+
+// Add geolocate control to the map.
+map.addControl(
+new mapboxgl.GeolocateControl({
+positionOptions: {
+enableHighAccuracy: true
+},
+// When active the map will receive updates to the device's location as it changes.
+trackUserLocation: true,
+// Draw an arrow next to the location dot to indicate which direction the device is heading.
+showUserHeading: true
+})
+);
+
+// After the map style has loaded on the page,
+// add a source layer and default styling for a single point
+map.on('load', () => {
+  map.addSource('single-point', {
+    type: 'geojson',
+    data: {
+      type: 'FeatureCollection',
+      features: []
     }
+  });
 
-    map = new google.maps.Map(document.getElementById("map"), options)
-}
+  map.addLayer({
+    id: 'point',
+    source: 'single-point',
+    type: 'circle',
+    paint: {
+      'circle-radius': 10,
+      'circle-color': '#448ee4'
+    }
+  });
+
+  // Listen for the `result` event from the Geocoder
+  // `result` event is triggered when a user makes a selection
+  //  Add a marker at the result's coordinates
+  geocoder.on('result', (event) => {
+    map.getSource('single-point').setData(event.result.geometry);
+  });
+});
 
 userFormEl.addEventListener("submit", formSubmit);
 
