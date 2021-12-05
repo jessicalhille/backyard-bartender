@@ -5,6 +5,7 @@ var liquorTypeEl = document.querySelector("#liquor");
 var resultsContainerEl = document.querySelector("#results-container");
 var searchTermEl = document.querySelector("#search-term");
 
+// get user input from search bar
 var formSubmit = function(event) {
     event.preventDefault();
 
@@ -17,9 +18,11 @@ var formSubmit = function(event) {
         return;
     };
 
+    // store the text input from user to local storage
     localStorage.setItem("liquor", JSON.stringify(liquorType));
 }
 
+// get api based on text input from user
 var getCocktail = function(liquorType) {
     var apiUrl = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=" + liquorType + "&appid=1";
 
@@ -37,11 +40,15 @@ var getCocktail = function(liquorType) {
     });
 }
 
+// data from the api is displayed on the right column of the page
 var displayCocktail = function(drinks, searchLiquor) {
+    // clear old data
     resultsContainerEl.textContent = "";
+
     searchTermEl.textContent = searchLiquor;
 
     for (var i = 0; i < drinks.drinks.length; i++) {
+        // collect name and id number from the array
         var cocktailNameArr = drinks.drinks[i].strDrink;
         var cocktailIdArr = drinks.drinks[i].idDrink;
 
@@ -55,6 +62,7 @@ var displayCocktail = function(drinks, searchLiquor) {
         resultsContainerEl.appendChild(cocktailRecipe);
         resultsContainerEl.appendChild(cocktailId);
 
+        // event listener for id button to get full recipe information
         cocktailId.addEventListener("click", function() {
             var cocktailIdSource = $(this).text();
             getCocktailDetail(cocktailIdSource);
@@ -62,6 +70,7 @@ var displayCocktail = function(drinks, searchLiquor) {
     }; 
 }
 
+// calls new api based on which id name the user selects
 var getCocktailDetail = function(cocktailIdSource) {
     var apiIdUrl = "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=" + cocktailIdSource + "&appid=1";
 
@@ -78,10 +87,14 @@ var getCocktailDetail = function(cocktailIdSource) {
     });
 }
 
+// displays the full cocktail recipe that user has selected
 var displayCocktailDetail = function(drinks) {
+
+    // clear the cocktail list
     resultsContainerEl.textContent = "";
 
     for (var i = 0; i < drinks.drinks.length; i++) {
+        // data that is needed from the array
         var cocktailImgUrl = drinks.drinks[0].strDrinkThumb;
         var cocktailImg = cocktailImgUrl + "/preview";
         var cocktailNameArr = drinks.drinks[0].strDrink;
@@ -158,16 +171,19 @@ var displayCocktailDetail = function(drinks) {
         saveBtn.classList = "button is-dark is-fullwidth";
         resultsContainerEl.appendChild(saveBtn);
 
+        // allows the user to return back to the original search list
         returnBtn.addEventListener("click", function() {
             var liquorSearchArr = JSON.parse(localStorage.getItem("liquor"));
             getCocktail(liquorSearchArr);
         });
         
+        // allows user to save the current cocktail to their localStorage
         saveBtn.addEventListener("click", function() {
             localStorage.setItem("searchHistory", JSON.stringify(resultsContainerEl.textContent));
         });
     };
 }
+
 mapboxgl.accessToken = 'pk.eyJ1IjoiYmV0aG11IiwiYSI6ImNrd3IzcG14ejBlMXgycG53OXJ5ZGFrdzIifQ.t8DE5oQ9pWsizZZSuEkrRg';
 const map = new mapboxgl.Map({
   container: 'map', // Container ID
@@ -232,5 +248,6 @@ map.on('load', () => {
   });
 });
 
+// event listener for generate recipe button
 userFormEl.addEventListener("submit", formSubmit);
 
