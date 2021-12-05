@@ -20,7 +20,9 @@ A stress-free, easy to use cocktail generator where all you need to know is whic
 ##### WHEN I click the return to search button
 ##### THEN I am taken back to my original search by liquor type
 ##### WHEN I click the save button for the recipe I want
-##### THEN the recipe is saved in local storage
+##### THEN the recipe is saved in local storage and displayed in the search history box
+##### WHEN I click on the ID button for one of the cocktail recipes in the search history box
+##### THEN the page displays the cocktail details for the recipe that was saved
 
 ***
 
