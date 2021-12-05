@@ -32,7 +32,11 @@
                 <input class="input" name="liquor" id="liquor" type="text" placeholder="e.g. Vodka" />
                 <button class="button is-dark" type="submit">Generate Recipe</button>
             </form>
-            <div id = "map" class="box"></div>
+            <div class="box">
+                <h2 class="label">Search History</h3>
+                <div id="search-history"></div>
+            </div>
+            <div id="map" class="box"></div>
         </div>
         <!--right column(result field)-->
         <div class="column is-two-thirds">
@@ -41,6 +45,7 @@
                 <ol id="results-container" class="content"></ol>
             </div>
         </div>
+    </div>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="./assets/script.js"></script>

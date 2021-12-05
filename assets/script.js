@@ -4,6 +4,7 @@ var userFormEl = document.querySelector("#search-box");
 var liquorTypeEl = document.querySelector("#liquor");
 var resultsContainerEl = document.querySelector("#results-container");
 var searchTermEl = document.querySelector("#search-term");
+var searchHistoryEl = document.querySelector("#search-history");
 
 // get user input from search bar
 var formSubmit = function(event) {
@@ -175,11 +176,38 @@ var displayCocktailDetail = function(drinks) {
         returnBtn.addEventListener("click", function() {
             var liquorSearchArr = JSON.parse(localStorage.getItem("liquor"));
             getCocktail(liquorSearchArr);
-        });
+        })
         
         // allows user to save the current cocktail to their localStorage
-        saveBtn.addEventListener("click", function() {
-            localStorage.setItem("searchHistory", JSON.stringify(resultsContainerEl.textContent));
+        saveBtn.addEventListener("click", function(event) {
+            event.preventDefault();
+            searchHistory.push({
+                searchTerm: JSON.parse(localStorage.getItem("liquor")),
+                drinkDetail: drinks.drinks[0]
+            })
+            localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
+            getSearchHistory();
+        });
+    };
+}
+
+function getSearchHistory() {
+    if (searchHistory.length > 0) {
+        searchHistory.forEach((search) => {
+            var searchDiv = document.createElement("div");
+            var recipeDiv = document.createElement("div");
+            var idDiv = document.createElement("button");
+            idDiv.classList = "button is-success is-light is-small is-fullwidth";
+            recipeDiv.textContent = search.drinkDetail.strDrink;
+            idDiv.textContent = search.drinkDetail.idDrink;
+            searchDiv.appendChild(recipeDiv);
+            searchDiv.appendChild(idDiv);
+            searchHistoryEl.appendChild(searchDiv); 
+
+            idDiv.addEventListener("click", function() {
+                var cocktailIdSource = $(this).text();
+                getCocktailDetail(cocktailIdSource);
+            });
         });
     };
 }
@@ -250,4 +278,3 @@ map.on('load', () => {
 
 // event listener for generate recipe button
 userFormEl.addEventListener("submit", formSubmit);
-
