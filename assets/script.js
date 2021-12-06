@@ -176,9 +176,9 @@ const map = new mapboxgl.Map({
   zoom: 12, // Starting zoom level
 });
 
-const marker = new mapboxgl.Marker() // initialize a new marker
-  .setLngLat([-97.3308, 32.7555]) // Marker [lng, lat] coordinates
-  .addTo(map); // Add the marker to the map
+// const marker = new mapboxgl.Marker() // initialize a new marker
+//   .setLngLat([-97.3308, 32.7555]) // Marker [lng, lat] coordinates
+//   .addTo(map); // Add the marker to the map
 
 const geocoder = new MapboxGeocoder({
 // Initialize the geocoder
